@@ -63,7 +63,7 @@
             {% for u in cfg.TARGET_ACCOUNTS %}
             <label class="form-check-label small border rounded px-2 py-1">
               <input type="checkbox" class="bot-acct" value="{{ u }}" {{ 'checked' if u in (b.accounts or []) }} onchange="syncAccts(this)">
-              {{ (cfg.PROFILES.get(u) or {}).get('name') or u }}
+              {{ ((cfg.PROFILES or {}).get(u) or {}).get('name') or u }}
             </label>
             {% endfor %}
           </div>
@@ -84,6 +84,11 @@
       <label class="form-label">设置新登录密码（留空则不改）</label>
       <input name="NEW_PASSWORD" class="form-control mb-3" placeholder="••••••">
       <div class="muted">监控状态：{{ '运行中' if status.running else '已停止' }}。改完设置请到信息流页停止再开始以生效。</div>
+      <hr>
+      <div class="muted">版本 <strong>v{{ version }}</strong>
+        {% if update_available %}· <a href="https://github.com/{{ github_repo }}/releases" target="_blank" class="text-danger fw-bold">🔔 发现新版 v{{ latest }}，点此下载</a>
+        {% elif github_repo %}· 已是最新{% endif %}
+      </div>
     </div></div>
   </div>
 </div>
@@ -93,7 +98,7 @@
 
 {% block scripts %}
 <script>
-var MON_ACCOUNTS = [{% for u in cfg.TARGET_ACCOUNTS %}{h:{{ u|tojson }}, n:{{ ((cfg.PROFILES.get(u) or {}).get('name') or u)|tojson }}}{{ ',' if not loop.last }}{% endfor %}];
+var MON_ACCOUNTS = [{% for u in cfg.TARGET_ACCOUNTS %}{h:{{ u|tojson }}, n:{{ (((cfg.PROFILES or {}).get(u) or {}).get('name') or u)|tojson }}}{{ ',' if not loop.last }}{% endfor %}];
 function syncAccts(cb){
   var row=cb.closest('.bot-row');
   var vals=[].slice.call(row.querySelectorAll('.bot-acct:checked')).map(function(x){return x.value;});

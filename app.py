@@ -8,6 +8,7 @@ import functools
 import json
 import os
 import secrets
+import sys
 import threading
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -22,10 +23,42 @@ import stock_screen
 from monitor import Monitor
 from store import TweetStore
 
-ROOT = Path(__file__).resolve().parent
-CONFIG_PATH = ROOT / "config.json"
-DATA_DIR = ROOT / "data"
-DATA_DIR.mkdir(exist_ok=True)
+# 路径：打包成 Mac .app 后，资源(模板/静态/A股名录种子)从 bundle 读，
+# 可写数据(配置/推文)落到用户目录；源码运行时两者都是项目目录（行为不变）。
+if getattr(sys, "frozen", False):
+    RESOURCE = Path(sys._MEIPASS)
+    APP_DIR = Path.home() / "Library" / "Application Support" / "Claworld Monitor"
+else:
+    RESOURCE = Path(__file__).resolve().parent
+    APP_DIR = RESOURCE
+APP_DIR.mkdir(parents=True, exist_ok=True)
+CONFIG_PATH = APP_DIR / "config.json"
+DATA_DIR = APP_DIR / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+ASHARES_PATH = RESOURCE / "data" / "ashares.json"
+
+# 桌面模式（打包成 .app，或本地以 CLAWORLD_DESKTOP=1 运行）：本机单用户，免登录、自动管理员。
+DESKTOP = getattr(sys, "frozen", False) or os.environ.get("CLAWORLD_DESKTOP") == "1"
+
+VERSION = "1.0.0"
+GITHUB_REPO = ""    # 发布后填 "GitHub用户名/仓库名"，即启用更新检查（留空则不检查）
+_ver_cache = {"latest": "", "ts": 0.0}
+
+
+def latest_version():
+    """查 GitHub 最新 release tag（每小时缓存一次）；未配置 GITHUB_REPO 则返回空。"""
+    import time as _t
+    if not GITHUB_REPO:
+        return ""
+    if _ver_cache["latest"] and _t.time() - _ver_cache["ts"] < 3600:
+        return _ver_cache["latest"]
+    try:
+        r = requests.get(f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest", timeout=5)
+        _ver_cache["latest"] = ((r.json() or {}).get("tag_name") or "").lstrip("v")
+        _ver_cache["ts"] = _t.time()
+    except Exception:
+        pass
+    return _ver_cache["latest"]
 
 DEFAULTS = {
     "TWITTER_API_KEY": "",
@@ -48,7 +81,7 @@ DEFAULTS = {
 
 # ---- 全局状态 ----
 store = TweetStore(str(DATA_DIR))
-screener = stock_screen.load_screener()
+screener = stock_screen.load_screener(ASHARES_PATH)
 monitoring_status = {
     "running": False,
     "current_status": "未启动",
@@ -119,8 +152,17 @@ def ensure_secrets(cfg):
 
 config = ensure_secrets(load_config())
 
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder=str(RESOURCE / "templates"),
+            static_folder=str(RESOURCE / "static"))
 app.secret_key = config["SECRET_KEY"]
+
+
+@app.before_request
+def _desktop_auto_auth():
+    # 桌面版：本机即管理员，自动登录，免去找控制台密码
+    if DESKTOP and not session.get("auth"):
+        session["auth"] = True
 
 
 def login_required(f):
@@ -272,7 +314,11 @@ def settings():
         save_config(cfg)
         flash("已保存。重启监控后生效。")
         return redirect(url_for("settings"))
-    return render_template("settings.html", cfg=cfg, status=monitoring_status, screener_size=screener.size)
+    latest = latest_version()
+    return render_template("settings.html", cfg=cfg, status=monitoring_status,
+                           screener_size=screener.size, version=VERSION,
+                           latest=latest, update_available=bool(latest and latest != VERSION),
+                           github_repo=GITHUB_REPO)
 
 
 @app.route("/api/push/<tweet_id>", methods=["POST"])

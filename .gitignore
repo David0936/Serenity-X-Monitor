@@ -6,3 +6,8 @@ data/tweets.json.tmp
 data/default_password.txt
 .venv/
 venv/
+
+# 桌面打包产物
+build/
+dist/
+*.spec

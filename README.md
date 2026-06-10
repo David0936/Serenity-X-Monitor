@@ -31,16 +31,28 @@
 
 ---
 
-## 🚀 快速开始
+## 🚀 使用方式
 
+### 方式一：Mac 桌面版（推荐，双击即用，免命令行）
+1. 到 **Releases** 下载 `Claworld Monitor.app`（或自行构建，见下）；
+2. 双击打开 —— 首次若提示「身份不明开发者」：**右键 App → 打开 → 再点"打开"**（只需一次）；
+3. 弹出窗口后到**设置**页填好 API（见下「API 配置指南」），回首页点**开始监控**。
+
+> 桌面版本机单用户、**免登录**；数据存于 `~/Library/Application Support/Claworld Monitor/`。
+
+### 方式二：源码运行（开发者 / 部署到服务器）
 ```bash
 pip3 install -r requirements.txt
-python3 start.py            # 默认 http://localhost:5001
+python3 start.py            # http://localhost:5001
+```
+首次启动控制台会打印**默认登录密码**（也写入 `data/default_password.txt`）；登录后到**设置**页填写各项。
+
+### 🔨 自行构建 Mac .app
+```bash
+bash build-mac.sh           # 产物：dist/Claworld Monitor.app
 ```
 
-首次启动会在控制台打印**默认登录密码**（也写入 `data/default_password.txt`）。打开 http://localhost:5001 登录后，到**设置**页填写各项（无需手改 JSON），保存后回信息流页点**开始监控**。
-
-> 首轮会按「回溯小时数」把历史推**只入库不推送**，避免刷屏；之后的新推才推飞书。
+> 首轮会按「回溯小时数」把历史推**只入库不推送**，避免刷屏；之后的新推才推送。
 
 ---
 
