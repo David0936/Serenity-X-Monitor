@@ -41,7 +41,7 @@ ASHARES_PATH = RESOURCE / "data" / "ashares.json"
 DESKTOP = getattr(sys, "frozen", False) or os.environ.get("CLAWORLD_DESKTOP") == "1"
 
 VERSION = "1.0.0"
-GITHUB_REPO = ""    # 发布后填 "GitHub用户名/仓库名"，即启用更新检查（留空则不检查）
+GITHUB_REPO = "David0936/Serenity-X-Monitor"    # 发布后填 "GitHub用户名/仓库名"，即启用更新检查（留空则不检查）
 _ver_cache = {"latest": "", "ts": 0.0}
 
 
