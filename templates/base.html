@@ -32,6 +32,7 @@
     </a>
     <div class="navbar-nav me-auto">
       <a class="nav-link {{ 'active' if request.endpoint == 'index' }}" href="{{ url_for('index') }}">实时推文</a>
+      <a class="nav-link {{ 'active' if request.endpoint == 'about' }}" href="{{ url_for('about') }}">关于</a>
       {% if session.get('auth') %}<a class="nav-link {{ 'active' if request.endpoint == 'settings' }}" href="{{ url_for('settings') }}">设置</a>{% endif %}
     </div>
     {% if session.get('auth') %}

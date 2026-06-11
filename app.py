@@ -364,6 +364,63 @@ def api_status():
     return jsonify(s)
 
 
+@app.route("/api/restart", methods=["POST"])
+@login_required
+def api_restart():
+    """一键重启监控：停止 → 重新载入配置启动（改完设置即用）。"""
+    stop_monitoring()
+    ok, msg = start_monitoring()
+    return jsonify(ok=ok, msg=("已重启 · " + msg) if ok else msg)
+
+
+# ---- 关于 / 更新日志 ----
+AUTHOR_LINKS = [
+    {"label": "微信公众号", "name": "自家的鱼鱼 / Claworld", "url": ""},
+    {"label": "X (Twitter)", "name": "@Shark1996_", "url": "https://x.com/shark1996_"},
+    {"label": "YouTube", "name": "@Singularity2026", "url": "https://www.youtube.com/@Singularity2026"},
+    {"label": "小红书", "name": "David小鱼", "url": "https://xhslink.com/m/6WBQosGc8F6"},
+]
+
+
+def _render_changelog():
+    """读 CHANGELOG.md 做轻量 markdown 渲染（##/###/- /文本）。"""
+    import html as _h
+    try:
+        lines = (RESOURCE / "CHANGELOG.md").read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return "<p class='muted'>暂无更新日志。</p>"
+    out, in_ul = [], False
+    for ln in lines:
+        s = ln.rstrip()
+        if s.startswith("### "):
+            if in_ul: out.append("</ul>"); in_ul = False
+            out.append(f"<h6 class='mt-3 fw-bold'>{_h.escape(s[4:])}</h6>")
+        elif s.startswith("## "):
+            if in_ul: out.append("</ul>"); in_ul = False
+            out.append(f"<div class='cl-ver'>{_h.escape(s[3:])}</div>")
+        elif s.startswith("# ") or s.startswith("<!--") or s.startswith("本项目版本"):
+            continue
+        elif s.startswith("- "):
+            if not in_ul: out.append("<ul class='mb-2'>"); in_ul = True
+            out.append(f"<li>{_h.escape(s[2:]).replace('**','')}</li>")
+        elif s.strip() == "":
+            if in_ul: out.append("</ul>"); in_ul = False
+        else:
+            if in_ul: out.append("</ul>"); in_ul = False
+            out.append(f"<p class='muted mb-1'>{_h.escape(s)}</p>")
+    if in_ul: out.append("</ul>")
+    return "\n".join(out)
+
+
+@app.route("/about")
+def about():
+    latest = latest_version()
+    return render_template("about.html", status=monitoring_status, version=VERSION,
+                           changelog=_render_changelog(), links=AUTHOR_LINKS,
+                           latest=latest, update_available=bool(latest and latest != VERSION),
+                           github_repo=GITHUB_REPO)
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5001))
     print(f"启动 Web 后台 http://0.0.0.0:{port}  （A股白名单 {screener.size} 只）")

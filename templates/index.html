@@ -28,6 +28,7 @@
         <div class="muted">已处理 {{ status.processed_tweets }} 条 · A股白名单 {{ screener_size }} 只 · 更新 {{ status.last_update|beijing }}</div>
         <div class="ms-auto">
           <button id="btn-start" class="btn btn-sm btn-success">开始监控</button>
+          <button id="btn-restart" class="btn btn-sm btn-primary">↻ 重启</button>
           <button id="btn-stop" class="btn btn-sm btn-outline-danger">停止</button>
         </div>
       </div>
@@ -82,6 +83,7 @@
 <script>
 async function ctl(path){ const r = await fetch(path,{method:'POST'}); const j = await r.json(); alert(j.msg||''); location.reload(); }
 var _bs=document.getElementById('btn-start'); if(_bs) _bs.onclick=()=>ctl('/api/start');
+var _br=document.getElementById('btn-restart'); if(_br) _br.onclick=()=>ctl('/api/restart');
 var _bt=document.getElementById('btn-stop'); if(_bt) _bt.onclick=()=>ctl('/api/stop');
 </script>
 {% endblock %}

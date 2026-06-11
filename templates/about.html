@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="card shadow-sm mb-3"><div class="card-body">
+      <h5 class="mb-1">Claworld Monitor <span class="muted" style="font-size:14px">v{{ version }}</span>
+        {% if update_available %}<a href="https://github.com/{{ github_repo }}/releases" target="_blank" class="badge bg-danger text-decoration-none" style="font-size:12px">🔔 新版 v{{ latest }}</a>
+        {% elif github_repo %}<span class="badge bg-secondary" style="font-size:12px">已是最新</span>{% endif %}</h5>
+      <p class="muted mb-0">X 财经博主实时监控 + AI 翻译解读 + A股/美股秒筛 + 飞书推送。<br>⚠️ 仅信息聚合提示，非投资建议，请独立判断、风险自负。个人非商用。</p>
+    </div></div>
+    <div class="card shadow-sm"><div class="card-body">
+      <h6 class="mb-3">👤 关注作者 · David小鱼 / Claworld</h6>
+      {% for l in links %}
+      <div class="d-flex align-items-center mb-2">
+        <span class="muted" style="width:104px;flex-shrink:0">{{ l.label }}</span>
+        {% if l.url %}<a href="{{ l.url }}" target="_blank" class="fw-semibold text-decoration-none">{{ l.name }} ↗</a>
+        {% else %}<span class="fw-semibold">{{ l.name }}</span>{% endif %}
+      </div>
+      {% endfor %}
+      <div class="muted mt-2" style="font-size:13px">GitHub · <a href="https://github.com/{{ github_repo }}" target="_blank">{{ github_repo }}</a></div>
+    </div></div>
+  </div>
+  <div class="col-lg-7">
+    <div class="card shadow-sm"><div class="card-body">
+      <h6 class="mb-3">📋 更新日志</h6>
+      <div class="changelog">{{ changelog|safe }}</div>
+    </div></div>
+  </div>
+</div>
+<style>
+  .changelog .cl-ver { font-weight:700; color:#1d4ed8; margin:20px 0 8px; font-size:15px; }
+  .changelog .cl-ver:first-child { margin-top:0; }
+  .changelog ul { padding-left:22px; margin-bottom:8px; }
+  .changelog li { margin:4px 0; font-size:14px; color:#334155; }
+  .changelog p.muted { font-size:13px; margin:2px 0; }
+</style>
+{% endblock %}
