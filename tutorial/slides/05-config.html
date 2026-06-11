@@ -1,0 +1,66 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#0b0d12; color:#e8eaed; }
+  .stage { position:relative; width:1920px; height:1080px;
+    background:radial-gradient(1100px 700px at 20% 18%, rgba(76,141,255,.08), transparent 60%), #0b0d12; }
+  .head { position:absolute; top:72px; left:90px; right:90px; display:flex; align-items:baseline; gap:24px; }
+  .step-no { font-size:30px; font-weight:800; color:#0b0d12; background:#4c8dff; border-radius:12px; padding:6px 18px; }
+  h2 { font-size:52px; font-weight:820; letter-spacing:-.01em; }
+  .head .hint { margin-left:auto; font-size:21px; color:#8a90a0; }
+
+  .shot { position:absolute; left:90px; top:200px; width:1010px;
+    border-radius:14px; overflow:hidden; box-shadow:0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); background:#15171d; }
+  .bar { height:42px; background:#1c1f27; display:flex; align-items:center; gap:9px; padding:0 16px; }
+  .dot { width:12px; height:12px; border-radius:50%; }
+  .shot img { width:100%; display:block; }
+  /* 截图上的 ①②③ 圆标 */
+  .pin { position:absolute; width:52px; height:52px; border-radius:50%; background:#e23744; color:#fff;
+    font-size:28px; font-weight:800; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 20px rgba(226,55,68,.5); border:3px solid #0b0d12; z-index:3; }
+
+  .guide { position:absolute; right:90px; top:200px; width:660px; display:flex; flex-direction:column; gap:22px; }
+  .card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:16px; padding:24px 28px; }
+  .card .n { display:inline-flex; width:38px; height:38px; border-radius:50%; background:#e23744; color:#fff;
+    font-weight:800; font-size:20px; align-items:center; justify-content:center; margin-right:14px; }
+  .card h3 { display:flex; align-items:center; font-size:27px; font-weight:750; }
+  .card h3 .req { margin-left:auto; font-size:16px; color:#8a90a0; font-weight:500; }
+  .card p { margin-top:14px; font-size:21px; line-height:1.65; color:#aeb4c2; }
+  .card .url { color:#4c8dff; font-weight:600; }
+  .card .pay { display:inline-block; margin-top:10px; font-size:18px; color:#f0b429;
+    background:rgba(240,180,41,.1); border:1px solid rgba(240,180,41,.25); border-radius:8px; padding:5px 12px; }
+  .foot { position:absolute; left:90px; bottom:48px; font-size:18px; color:#6b7180; }
+</style></head>
+<body><div class="stage">
+  <div class="head">
+    <span class="step-no">②</span><h2>配 API · 第二步 —— 就填 3 个地方</h2>
+    <span class="hint">设置页 · 全部填好点「保存」即可</span>
+  </div>
+
+  <div class="shot">
+    <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <img src="../shots/02-设置页.png" alt="设置页">
+    <div class="pin" style="left:40px; top:150px">①</div>
+    <div class="pin" style="left:560px; top:150px">②</div>
+    <div class="pin" style="left:40px; top:470px">③</div>
+  </div>
+
+  <div class="guide">
+    <div class="card">
+      <h3><span class="n">1</span>数据源 · twitterapi.io<span class="req">必填</span></h3>
+      <p>抓推文的来源。去 <span class="url">twitterapi.io</span> 注册、拿 API Key，填这里。</p>
+      <span class="pay">💰 按量预付费 · 约 $0.001/次，先充几美元</span>
+    </div>
+    <div class="card">
+      <h3><span class="n">2</span>AI 模型<span class="req">必填其一</span></h3>
+      <p>负责翻译 / 解读。<b style="color:#dfe3ea">Claude</b>（console.anthropic.com）或 <b style="color:#dfe3ea">通义千问 / 任意 OpenAI 兼容接口</b>，二选一填 key。</p>
+    </div>
+    <div class="card">
+      <h3><span class="n">3</span>飞书推送<span class="req">可选</span></h3>
+      <p>飞书群 → 群机器人 → 自定义机器人 → 复制 <span class="url">Webhook</span>，粘进来。命中股票就弹群里。</p>
+    </div>
+  </div>
+  <div class="foot">⚠️ 仅信息聚合提示，非投资建议 · 数据源与 AI 均用你自己的付费 Key</div>
+</div></body></html>

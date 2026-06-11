@@ -1,0 +1,71 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1920px; height:1080px; overflow:hidden;
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:#0b0d12; color:#e8eaed; }
+  .stage { position:relative; width:1920px; height:1080px;
+    background:
+      radial-gradient(1200px 700px at 78% 30%, rgba(76,141,255,.10), transparent 60%),
+      radial-gradient(900px 600px at 12% 88%, rgba(226,55,68,.08), transparent 60%),
+      #0b0d12; }
+  /* 细网格底纹，安静不抢戏 */
+  .stage::before { content:""; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:64px 64px; mask:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent); }
+  .wm { position:absolute; top:64px; left:90px; display:flex; align-items:center; gap:14px;
+    font-weight:800; letter-spacing:.06em; font-size:26px; }
+  .claw { color:#e23744; }
+  .tag-top { position:absolute; top:70px; right:90px; font-size:18px; color:#8a90a0; letter-spacing:.04em; }
+
+  .left { position:absolute; left:90px; top:300px; width:840px; }
+  .kicker { display:inline-block; font-size:19px; letter-spacing:.22em; color:#4c8dff;
+    border:1px solid rgba(76,141,255,.35); border-radius:999px; padding:8px 18px; margin-bottom:34px; }
+  h1 { font-size:104px; line-height:1.02; font-weight:850; letter-spacing:-.01em; }
+  h1 .sub { display:block; font-size:46px; font-weight:750; color:#c5c9d3; margin-top:22px; letter-spacing:.01em; }
+  .lede { margin-top:40px; font-size:27px; line-height:1.7; color:#aab0be; max-width:720px; }
+  .chips { margin-top:40px; display:flex; flex-wrap:wrap; gap:14px; }
+  .chip { font-size:21px; padding:11px 20px; border-radius:12px; background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.09); color:#dfe3ea; }
+  .chip b { color:#fff; }
+
+  /* 右侧浮窗截图 */
+  .shot { position:absolute; right:-30px; top:235px; width:1010px;
+    border-radius:16px; overflow:hidden; transform:rotate(-2.2deg);
+    box-shadow:0 50px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
+    background:#15171d; }
+  .bar { height:46px; background:#1c1f27; display:flex; align-items:center; gap:9px; padding:0 18px;
+    border-bottom:1px solid rgba(255,255,255,.06); }
+  .dot { width:13px; height:13px; border-radius:50%; }
+  .shot img { width:100%; display:block; }
+  .shot .fade { position:absolute; left:0; right:0; bottom:0; height:200px;
+    background:linear-gradient(transparent,#0b0d12); }
+
+  .foot { position:absolute; left:90px; bottom:60px; font-size:20px; color:#7e8493; letter-spacing:.02em; }
+  .foot b { color:#aeb4c2; }
+</style></head>
+<body><div class="stage">
+  <div class="wm">CLA<span class="claw">W</span>ORLD<span style="color:#5b6172;font-weight:600;font-size:20px;margin-left:6px">· 财经监控</span></div>
+  <div class="tag-top">开源 · 自部署 · 个人非商用</div>
+
+  <div class="shot">
+    <div class="bar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span></div>
+    <img src="../shots/01-信息流.png" alt="信息流">
+    <div class="fade"></div>
+  </div>
+
+  <div class="left">
+    <span class="kicker">X · 财经博主实时监控</span>
+    <h1>盯住博主<span class="sub">第一时间抓到股票线索</span></h1>
+    <p class="lede">博主一发推，几十秒内自动翻译、解读，还把提到的 A股 / 美股秒筛出来，红色弹到你飞书群。</p>
+    <div class="chips">
+      <span class="chip">🔍 <b>实时监控</b></span>
+      <span class="chip">🤖 <b>AI 翻译解读</b></span>
+      <span class="chip">🅰️ <b>A股/美股秒筛</b></span>
+      <span class="chip">📱 <b>飞书推送</b></span>
+    </div>
+  </div>
+
+  <div class="foot">公众号 <b>自家的鱼鱼 / Claworld</b>　·　X <b>@Shark1996_</b>　·　YouTube <b>@Singularity2026</b></div>
+</div></body></html>

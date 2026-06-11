@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<title>Claworld Monitor · 讲解</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:"PingFang SC",sans-serif;}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  #frame{width:1920px;height:1080px;border:0;background:#0b0d12;transform-origin:center center;}
+  #hud{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);color:#9a9a9a;font-size:13px;
+    background:rgba(0,0,0,.55);padding:6px 16px;border-radius:999px;z-index:10;letter-spacing:.05em;}
+</style></head><body>
+<div id="wrap"><iframe id="frame" title="slide"></iframe></div>
+<div id="hud"><span id="n"></span> &nbsp;·&nbsp; ← → / 点击两侧翻页</div>
+<script>
+const slides=["slides/01-cover.html","slides/02-what.html","slides/03-features.html",
+  "slides/04-install.html","slides/05-config.html","slides/06-usage.html","slides/07-outro.html"];
+let i=0; const f=document.getElementById('frame'), n=document.getElementById('n');
+const fit=()=>{ f.style.transform='scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'; };
+const show=()=>{ f.src=slides[i]; n.textContent=(i+1)+' / '+slides.length; };
+const go=d=>{ i=Math.max(0,Math.min(slides.length-1,i+d)); show(); };
+addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' ')go(1); if(e.key==='ArrowLeft')go(-1); });
+addEventListener('click',e=>go(e.clientX>innerWidth/2?1:-1));
+addEventListener('resize',fit); fit(); show();
+</script></body></html>

@@ -1,0 +1,32 @@
+/* Claworld 教学幻灯片 · 共享视觉 token（取自产品本身：深色导航 + 红爪/蓝点缀） */
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:1920px; height:1080px; overflow:hidden;
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:#0b0d12; color:#e8eaed; }
+.stage { position:relative; width:1920px; height:1080px;
+  background:radial-gradient(1100px 700px at 78% 22%, rgba(76,141,255,.09), transparent 60%),
+    radial-gradient(900px 600px at 12% 90%, rgba(226,55,68,.07), transparent 60%), #0b0d12; }
+.stage::before { content:""; position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:64px 64px; mask:linear-gradient(180deg,transparent,#000 28%,#000 72%,transparent); }
+.kicker { display:inline-block; font-size:19px; letter-spacing:.2em; color:#4c8dff;
+  border:1px solid rgba(76,141,255,.35); border-radius:999px; padding:8px 18px; }
+.h2 { font-size:62px; font-weight:840; letter-spacing:-.01em; line-height:1.08; }
+.lede { font-size:27px; line-height:1.7; color:#aab0be; }
+.red { color:#e23744; } .blue { color:#4c8dff; } .gold { color:#f0b429; }
+.head { position:absolute; top:84px; left:96px; right:96px; }
+.head .num { font-size:26px; font-weight:800; color:#0b0d12; background:#4c8dff; border-radius:10px; padding:5px 16px; margin-right:18px; }
+.foot { position:absolute; left:96px; bottom:54px; font-size:19px; color:#6f7585; letter-spacing:.02em; }
+.foot b { color:#aeb4c2; }
+/* 浏览器浮窗 */
+.win { border-radius:14px; overflow:hidden; background:#15171d;
+  box-shadow:0 40px 100px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06); }
+.win .bar { height:44px; background:#1c1f27; display:flex; align-items:center; gap:9px; padding:0 16px; }
+.win .dot { width:12px; height:12px; border-radius:50%; }
+.win img { width:100%; display:block; }
+.card { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.09); border-radius:18px; padding:30px 32px; }
+.card h3 { font-size:30px; font-weight:760; display:flex; align-items:center; gap:14px; }
+.card p { margin-top:14px; font-size:22px; line-height:1.6; color:#aeb4c2; }
+.ico { width:56px; height:56px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:30px; background:rgba(76,141,255,.12); border:1px solid rgba(76,141,255,.25); }
+.wm { position:absolute; top:60px; left:96px; font-weight:800; letter-spacing:.05em; font-size:24px; }
+.wm .c { color:#e23744; }

@@ -1,0 +1,26 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><link rel="stylesheet" href="base.css">
+<style>
+  .opts { position:absolute; left:96px; right:96px; top:300px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:28px; }
+  .opt { background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.09); border-radius:18px; padding:32px; position:relative; }
+  .opt.reco { border-color:rgba(76,141,255,.5); background:rgba(76,141,255,.07); }
+  .opt .badge { position:absolute; top:-14px; left:28px; font-size:16px; background:#4c8dff; color:#0b0d12; font-weight:700; padding:4px 14px; border-radius:999px; }
+  .opt .big { font-size:46px; }
+  .opt h3 { font-size:30px; font-weight:760; margin-top:14px; }
+  .opt p { font-size:21px; color:#aeb4c2; line-height:1.6; margin-top:14px; }
+  .opt code { background:rgba(0,0,0,.35); color:#9ecbff; padding:3px 9px; border-radius:6px; font-size:18px; }
+</style></head>
+<body><div class="stage">
+  <div class="wm">CLA<span class="c">W</span>ORLD</div>
+  <div class="head" style="top:150px"><span class="kicker">怎么装 · 第一步</span>
+    <div class="h2" style="margin-top:24px">三种装法，挑顺手的</div></div>
+  <div class="opts">
+    <div class="opt reco"><span class="badge">最省事</span>
+      <div class="big">🖱</div><h3>Mac 双击 App</h3>
+      <p>Releases 下载 <code>Claworld Monitor.app</code>，双击就开（首次右键→打开）。不用装环境。</p></div>
+    <div class="opt"><div class="big">⚡</div><h3>一键脚本</h3>
+      <p>双击 <code>run.command</code>(Mac) / <code>run.bat</code>(Win)，自动建环境、起服务、开浏览器。</p></div>
+    <div class="opt"><div class="big">💻</div><h3>源码运行</h3>
+      <p><code>pip install -r requirements.txt</code><br><code>python3 start.py</code> → localhost:5001。</p></div>
+  </div>
+  <div class="foot">装好后还差一步：<b class="gold">配 API</b>（下一页）—— 数据源 / AI / 飞书</div>
+</div></body></html>
