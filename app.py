@@ -112,10 +112,13 @@ def save_config(cfg):
 def fetch_profiles(cfg):
     """拉取监控账号的头像/昵称/粉丝数，缓存到 config['PROFILES']（{user:{avatar,name,followers}}）。"""
     key = (cfg.get("TWITTER_API_KEY") or "").strip()
-    profiles = dict(cfg.get("PROFILES") or {})
+    targets = cfg.get("TARGET_ACCOUNTS", [])
+    profiles = {u: p for u, p in (cfg.get("PROFILES") or {}).items() if u in targets}
     if not key:
+        cfg["PROFILES"] = profiles
+        save_config(cfg)
         return profiles
-    for acct in cfg.get("TARGET_ACCOUNTS", []):
+    for acct in targets:
         try:
             r = requests.get("https://api.twitterapi.io/twitter/user/info",
                              headers={"X-API-Key": key}, params={"userName": acct}, timeout=15)
