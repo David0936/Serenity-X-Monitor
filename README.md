@@ -1,5 +1,10 @@
 # 📈 Claworld Monitor — X(Twitter) 财经监控 + 股票秒筛
 
+[![Release](https://img.shields.io/github/v/release/David0936/Serenity-X-Monitor?label=version&color=brightgreen)](https://github.com/David0936/Serenity-X-Monitor/releases/latest)
+[![Changelog](https://img.shields.io/badge/changelog-更新日志-blue)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/license-个人免费自用-orange)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/David0936/Serenity-X-Monitor?style=social)](https://github.com/David0936/Serenity-X-Monitor)
+
 自部署的 X(Twitter) 财经博主监控系统：**多账号实时监控 → AI 翻译 / 中文标题 / 财经解读 → 推文秒筛股票（A股 + 美股）→ 飞书推送 + Web 后台**。
 
 为「盯财经博主、第一时间抓到股票线索」而做：博主一发推，几十秒内飞书弹卡片，点名的 A股 / 美股自动红色置顶。
@@ -79,6 +84,11 @@ bash build-mac.sh           # 产物：dist/Claworld Monitor.app
 ```
 
 > 首轮会按「回溯小时数」把历史推**只入库不推送**，避免刷屏；之后的新推才推送。
+
+### 🔄 更新升级
+- **源码版**：有新版时「设置」页会弹出「⬇️ 一键更新」按钮，点一下自动拉取最新代码并重启，你的配置（API Key / 博主 / 飞书）和已抓推文**原样保留**。也可手动 `git pull && 重启`。
+- **桌面 .app 版**：到 [Releases](https://github.com/David0936/Serenity-X-Monitor/releases/latest) 下载新版替换即可。
+- 版本号与改动见 [CHANGELOG.md](CHANGELOG.md)。
 
 ---
 
